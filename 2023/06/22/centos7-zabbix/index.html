@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Centos7 部署zabbix企业级监控（更换阿里云镜像） | 404_502&#39;s blog</title>
+    <meta name="author" content="404_502" />
+    <meta name="description" content="备用站点" />
+    <meta name="keywords" content="blog" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+					<p>由于本站是部署在GitHub上，如果你不会魔法可能会非常慢</p>
+                    <p>若第二次加载还慢请开启浏览器缓存 浏览器默认开启</p>
+                    <img src="/images/Catsprint.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>404_502&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://404-502.icu/">
+            <i class="fa-solid fa-house-chimney fa-fw"></i>
+            <span>&ensp;主站</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;404_502&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页</div>
+                    </div>
+                </a>
+                
+                <a target="_blank" rel="noopener" href="https://404-502.icu/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house-chimney fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主站</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Centos7 部署zabbix企业级监控（更换阿里云镜像）</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/6/22
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Linux/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #ff7d73">Linux</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p><strong>安装前提需要安装好MySQL数据库，若没有可以参考这两个文章</strong><a target="_blank" rel="noopener" href="https://404-502.icu/install_mysql/">Centos7 yum方式安装MySQL5.7</a> ，<a target="_blank" rel="noopener" href="https://404-502.icu/rpm-mysql/">Centos7 rpm方式安装MySQL5.7</a> <strong>，建议使用rpm的方式安装，yum因为是国外会有点慢！</strong></p>
+<h2 id="1、永久关闭selinux"><a href="#1、永久关闭selinux" class="headerlink" title="1、永久关闭selinux"></a>1、永久关闭selinux</h2><pre><code>sudo setenforce 0
+sudo sed -i &quot;s/SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/selinux/config
+</code></pre>
+<p>重启服务器</p>
+<pre><code>shutdown -r now
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230622102516911.png"></p>
+<p>等一下按R重新连接就OK</p>
+<p>输入<code>getenforce</code> ，可查看是否关闭，显示<code>Disabled</code>就是已关闭，显示<code>Enforcing</code>则没关</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230622102551197.png"></p>
+<h2 id="2、获取zabbix下载源"><a href="#2、获取zabbix下载源" class="headerlink" title="2、获取zabbix下载源"></a>2、获取zabbix下载源</h2><pre><code>rpm -Uvh https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621154659867.png"></p>
+<h2 id="3、更换zabbix-repo源为阿里的"><a href="#3、更换zabbix-repo源为阿里的" class="headerlink" title="3、更换zabbix.repo源为阿里的"></a>3、更换zabbix.repo源为阿里的</h2><pre><code>sed -i &#39;s#http://repo.zabbix.com#https://mirrors.aliyun.com/zabbix#&#39; /etc/yum.repos.d/zabbix.repo
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621154921349.png"></p>
+<p>清空缓存</p>
+<pre><code>yum clean all
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621155036825.png"></p>
+<h2 id="4、下载安装zabbix服务端"><a href="#4、下载安装zabbix服务端" class="headerlink" title="4、下载安装zabbix服务端"></a>4、下载安装zabbix服务端</h2><pre><code>yum install zabbix-server-mysql zabbix-agent -y
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621155157161.png"></p>
+<p>显示完毕就不用看报错解决了</p>
+<p>如果不是按我的两篇MySQL安装教程的话，可能会出报错，解决方法如下</p>
+<p>如果报错如下图所示</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230622090529675.png"></p>
+<p>则缺少依赖 libmysqlclient.so.18(64bit)，输入下面的命令继续安装（我的MySQL数据库版本为5.7.42，如果版本不一样的话，请去MySQL官网寻找，或者尝试更改地址里的版本可能行）</p>
+<pre><code>wget https://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/mysql-community-libs-compat-5.7.42-1.el7.x86_64.rpm
+</code></pre>
+<p>如果没有wget命令，则通过 <code>yum install -y wget</code> 安装，然后在执行上面的命令</p>
+<p>因为是从国外继续下载，速度可能很慢，我这里提供我下载好的rpm包，然后自行上传 <a target="_blank" rel="noopener" href="https://upyun.404-502.icu/document/mysql-community-libs-compat-5.7.42-1.el7.x86_64.rpm">点击下载</a></p>
+<p>安装这个包</p>
+<pre><code>rpm -ivh mysql-community-libs-compat-5.7.42-1.el7.x86_64.rpm
+</code></pre>
+<p>如果还提示缺少perl.x86_64、libaio.x86_64、net-tools.x86_64，则输入下面的命令进行安装</p>
+<pre><code>yum install -y perl.x86_64
+yum install -y libaio.x86_64
+yum install -y net-tools.x86_64
+</code></pre>
+<p><em>解决完后，请再去执行刚才报错的代码</em></p>
+<p>如果还不行，百度进行解决</p>
+<h2 id="5、安装Zabbix前端"><a href="#5、安装Zabbix前端" class="headerlink" title="5、安装Zabbix前端"></a>5、安装Zabbix前端</h2><pre><code>yum install centos-release-scl -y
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621155509616.png"></p>
+<p>编辑配置文件 &#x2F;etc&#x2F;yum.repos.d&#x2F;zabbix.repo ，按i进入插入模式，把下方图片高亮显示的改为1，然后按Esc 输入<code>:wq</code>保存退出</p>
+<pre><code>vi /etc/yum.repos.d/zabbix.repo
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621155706699.png"></p>
+<p>然后输入下面的命令进行安装zabbix前端包</p>
+<pre><code>yum install zabbix-web-mysql-scl zabbix-apache-conf-scl -y
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621160253311.png"></p>
+<h2 id="6、创建初始数据库"><a href="#6、创建初始数据库" class="headerlink" title="6、创建初始数据库"></a>6、创建初始数据库</h2><p>登录MySQL数据库，输入密码进入</p>
+<pre><code>mysql -uroot -p
+</code></pre>
+<p>给zabbix配置用户和权限，输入以下命令（第二条命令里的password是密码，可按需求更改，如果执行有报错，可能是你设置的密码强度不够，具体情况看报错写的是什么）</p>
+<pre><code>create database zabbix character set utf8 collate utf8_bin;
+create user zabbix@localhost identified by &#39;password&#39;;
+grant all privileges on zabbix.* to zabbix@localhost;
+set global log_bin_trust_function_creators = 1;
+</code></pre>
+<p>退出数据库</p>
+<pre><code>quit;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621163909177.png"></p>
+<p>导入初始架构和数据，系统将提示您输入刚刚创建的密码，然后回车，这里得等一下下</p>
+<pre><code>zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz  mysql -uzabbix -p zabbix
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621163927535.png"></p>
+<p>新的一行出来了就说明导入完成，重新进入数据库</p>
+<pre><code>mysql -uroot -p
+</code></pre>
+<p>输入以下命令</p>
+<pre><code>set global log_bin_trust_function_creators = 0;
+quit;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621164002241.png"></p>
+<h2 id="7、为Zabbix-server配置数据库"><a href="#7、为Zabbix-server配置数据库" class="headerlink" title="7、为Zabbix server配置数据库"></a>7、为Zabbix server配置数据库</h2><p>编辑配置文件 &#x2F;etc&#x2F;zabbix&#x2F;zabbix_server.conf，输入 &#x2F; 然后输入<code>DBPassword</code>进行查找</p>
+<pre><code>vi /etc/zabbix/zabbix_server.conf
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621164306307.png"></p>
+<p>上面高亮的地方进行更改，我的密码是password，在上面设置了什么这里就填什么，不是数据库的密码，这里是记得删掉注释，然后保存退出</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621164251886.png"></p>
+<h2 id="8、为Zabbix前端配置PHP"><a href="#8、为Zabbix前端配置PHP" class="headerlink" title="8、为Zabbix前端配置PHP"></a>8、为Zabbix前端配置PHP</h2><p>编辑配置文件 &#x2F;etc&#x2F;opt&#x2F;rh&#x2F;rh-php72&#x2F;php-fpm.d&#x2F;zabbix.conf，把Europe&#x2F;Riga改为<code>Asia/shanghai</code> ，同时要把前面的注释符 ; 去掉，然后保存退出</p>
+<pre><code>vi /etc/opt/rh/rh-php72/php-fpm.d/zabbix.conf
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621161609311.png"></p>
+<h2 id="9、启动Zabbix-server和agent进程"><a href="#9、启动Zabbix-server和agent进程" class="headerlink" title="9、启动Zabbix server和agent进程"></a>9、启动Zabbix server和agent进程</h2><p>启动Zabbix server和agent进程，并为它们设置开机自启</p>
+<pre><code>systemctl restart zabbix-server zabbix-agent httpd rh-php72-php-fpm
+systemctl enable zabbix-server zabbix-agent httpd rh-php72-php-fpm
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621164744979.png"></p>
+<h2 id="10、zabbix的网页配置"><a href="#10、zabbix的网页配置" class="headerlink" title="10、zabbix的网页配置"></a>10、zabbix的网页配置</h2><p>浏览器输入<code>192.168.xxx.xxx/zabbix</code> 即可访问</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621165250746.png"></p>
+<p>如果访问不了，可能是因为防火墙端口问题</p>
+<pre><code>//查看80端口是否开放，开放是success，关闭是no
+firewall-cmd --add-port=80/tcp --permanent
+//开放80端口
+firewall-cmd --query-port=80/tcp
+//重新加载一下
+firewall-cmd --reload
+</code></pre>
+<p>点击<code>Next step</code>，这个页面是zabbix检查环境，如果有不是ok的请排查是否缺少</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621165337283.png"></p>
+<p>继续点击<code>Next step</code> ，这里是配置MySQL数据库，如果数据库在本机，则只需要填写密码</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621165946626.png"></p>
+<p>继续点击<code>Next step</code> ，这里可以不做更改</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621170103780.png"></p>
+<p>继续点击<code>Next step</code> ，这是总览</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621170144292.png"></p>
+<p>继续点击<code>Next step</code> ，然后点击<code>Finish</code> ，即可完成</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621170211792.png"></p>
+<h2 id="11、登录zabbix"><a href="#11、登录zabbix" class="headerlink" title="11、登录zabbix"></a>11、登录zabbix</h2><p>默认用户名为：<code>Admin</code></p>
+<p>默认密码为：<code>zabbix</code></p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621170336346.png"></p>
+<p>成功登录</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621170455493.png"></p>
+<p>在左下角的<code>User settings</code>，里面可以切换中文</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230621170734191.png"></p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            2022 - 2023 &copy; 404_502
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;404_502
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="404-502/404-502.github.io"
+    data-repo-id="R_kgDOKdh3wA"
+    data-category="General"
+    data-category-id="DIC_kwDOKdh3wM4CZ_I5"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>

@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title> | 404_502&#39;s blog</title>
+    <title>Centos7实现MySQL主主复制 | 404_502&#39;s blog</title>
     <meta name="author" content="404_502" />
     <meta name="description" content="备用站点" />
     <meta name="keywords" content="blog" />
@@ -31,6 +31,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -145,25 +149,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/categories/PHP/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                PHP
-            </a>
+            <div class="article">
+    <div>
+        <h1>Centos7实现MySQL主主复制</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/6/10
         </span>
         
-        
-        
-        <span>
-            <a href="/categories/Linux/" style="background: #03a9f4">
+        <span class="category">
+            <a href="/categories/Linux/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -172,51 +171,91 @@
         </span>
         
         
-        
-        <span>
-            <a href="/categories/%E6%96%87%E7%AB%A0/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                文章
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #03a9f4">Linux</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/MySQL/" style="color: #ffa2c4">MySQL</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                数据库
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/HTML/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                HTML
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/categories/Python/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                Python
-            </a>
-        </span>
-        
         
     </div>
+    
+    <div class="content" v-pre>
+        <p><strong>此篇文章是在配置好<a target="_blank" rel="noopener" href="https://404-502.icu/mysql_master-slave/">Centos7实现MySQL主从复制</a>的前提下继续配置</strong></p>
+<h2 id="一、配置原从机"><a href="#一、配置原从机" class="headerlink" title="一、配置原从机"></a>一、配置原从机</h2><p>用 vi（vim）编辑 MySQL 的配置文件 &#x2F;etc&#x2F;my.cnf</p>
+<pre><code>vi /etc/my.cnf
+</code></pre>
+<p>增加以下配置：</p>
+<pre><code>log-bin=mysql-bin
+binlog-do-db=test
+expire-logs-days=10
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230609160433731.png"></p>
+<p>输入下面的命令重启MySQL</p>
+<pre><code>service mysqld restart
+</code></pre>
+<p>然后使用命令行进入 mysql</p>
+<pre><code>mysql -u root -p
+</code></pre>
+<p>接着输入 root 用户的密码</p>
+<p>创建用户给原主机</p>
+<pre><code>//192.168.1.4是原主机的IP，Java@1234这个是给原主机的密码，root这个是给原主机的用户名
+GRANT REPLICATION SLAVE ON *.* to &#39;root&#39;@&#39;192.168.1.4&#39; identified by &#39;Java@1234&#39;;
+
+//刷新系统权限表的配置
+FLUSH PRIVILEGES;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230609160907541.png"></p>
+<p>通过命令行 <code>show master status\G;</code> 查看当前 binlog 日志的信息 (后面有用)</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230609161005775.png"></p>
+<h2 id="二、配置原主机"><a href="#二、配置原主机" class="headerlink" title="二、配置原主机"></a>二、配置原主机</h2><p>使用命令行进入 mysql</p>
+<pre><code>mysql -u root -p
+</code></pre>
+<p>接着输入 root 用户的密码</p>
+<p>输入下面代码（记得把对应的数值进行更改和把注释删除掉）</p>
+<pre><code>CHANGE MASTER TO 
+MASTER_HOST=&#39;192.168.1.5&#39;,//主机IP
+MASTER_USER=&#39;root&#39;,//之前创建的用户账号
+MASTER_PASSWORD=&#39;Java@1234&#39;,//之前创建的用户密码
+MASTER_LOG_FILE=&#39;mysql-bin.000004&#39;,//master主机的binlog日志名称
+MASTER_LOG_POS=796,//binlog日志偏移量
+master_port=3306;//端口
+</code></pre>
+<p>binlog 日志就是在原从机这条 <code>show master status\G;</code> 命令查询出来的参数</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230609161005775.png"></p>
+<p>完成上面后，还要启动它</p>
+<pre><code>start slave;
+</code></pre>
+<p>这里说一下停止的命令为 <code>stop slave;</code></p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230609161751579.png"></p>
+<p>启动完之后怎么校验是否启动成功呢？使用以下命令</p>
+<pre><code>show slave status\G;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230609161837305.png"></p>
+<h2 id="三、测试主主复制"><a href="#三、测试主主复制" class="headerlink" title="三、测试主主复制"></a>三、测试主主复制</h2><p>通过更改一个数据库的test库里的表，观察另外一个数据库的test库对应的表是否发送变化，再调换顺序进行测试，如果发现数据库相互进行同步，就说明成功了</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -247,6 +286,30 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="404-502/404-502.github.io"
+    data-repo-id="R_kgDOKdh3wA"
+    data-category="General"
+    data-category-id="DIC_kwDOKdh3wM4CZ_I5"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+
+
+
+
+
     
 </body>
 </html>

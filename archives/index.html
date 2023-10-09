@@ -34,6 +34,8 @@
 
 
 
+<script src="/js/lib/search.js"></script>
+
 
 
 <link rel="stylesheet" href="/css/main.css" />
@@ -45,7 +47,7 @@
             <div id="loading" v-show="loading">
                 <div id="loading-circle">
                     <h2>LOADING</h2>
-					<p>由于本站是部署在GitHub上，所有第一次加载有点慢</p>
+					<p>由于本站是部署在GitHub上，如果你不会魔法可能会非常慢</p>
                     <p>若第二次加载还慢请开启浏览器缓存 浏览器默认开启</p>
                     <img src="/images/Catsprint.gif" />
                 </div>
@@ -148,45 +150,656 @@
             
 <div id="archives">
     
+    <input id="search-bar" class="input" placeholder="搜索" v-model="rawSearch" />
+    
     <div id="timeline-wrap" ref="timeline">
         
-        <div class="timeline" data-title="helloworld">
+        <div class="timeline" data-title="centos7实现nginx+tomcat集群部署">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
-                <div class="item-time">2023/10/8</div>
-                <a href="/2023/10/08/hello-world/">
-                    <h3>Hello World</h3>
+                <div class="item-time">2023/6/3</div>
+                <a href="/2023/06/03/centos7-nginx-tomcat/">
+                    <h3>Centos7实现Nginx+tomcat集群部署</h3>
                 </a>
                 <div class="info">
                     
+                    <span class="category">
+                        <a href="/categories/Linux/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            Linux
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Linux/" style="color: #ff7d73">Linux</a>
+                        </span>
+                        
+                    </span>
                     
                 </div>
             </div>
         </div>
         
-        <div class="timeline" data-title="网站测试">
+        <div class="timeline" data-title="centos7yum方式安装mysql5.7">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
-                <div class="item-time">2023/10/8</div>
-                <a href="/2023/10/08/website-testing/">
-                    <h3>网站测试</h3>
+                <div class="item-time">2023/6/8</div>
+                <a href="/2023/06/08/install-mysql/">
+                    <h3>Centos7 yum方式安装MySQL5.7</h3>
                 </a>
                 <div class="info">
                     
+                    <span class="category">
+                        <a href="/categories/Linux/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            Linux
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Linux/" style="color: #00a596">Linux</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/MySQL/" style="color: #ff7d73">MySQL</a>
+                        </span>
+                        
+                    </span>
                     
                 </div>
             </div>
         </div>
         
-        <div class="timeline" data-title="python的字典">
+        <div class="timeline" data-title="centos7实现mysql主从复制">
             <div class="timeline-tail"></div>
             <div class="timeline-content">
-                <div class="item-time">2023/10/9</div>
-                <a href="/2023/10/09/python-some-basics-of-dictionaries/">
-                    <h3>Python的字典</h3>
+                <div class="item-time">2023/6/9</div>
+                <a href="/2023/06/09/mysql-master-slave/">
+                    <h3>Centos7实现MySQL主从复制</h3>
                 </a>
                 <div class="info">
                     
+                    <span class="category">
+                        <a href="/categories/Linux/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            Linux
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Linux/" style="color: #ff7d73">Linux</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/MySQL/" style="color: #00bcd4">MySQL</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="centos7实现mysql主主复制">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/6/10</div>
+                <a href="/2023/06/10/mysql-master-master-replication/">
+                    <h3>Centos7实现MySQL主主复制</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/Linux/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            Linux
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Linux/" style="color: #03a9f4">Linux</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/MySQL/" style="color: #00a596">MySQL</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="centos7rpm方式安装mysql5.7">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/6/16</div>
+                <a href="/2023/06/16/rpm-mysql/">
+                    <h3>Centos7 rpm方式安装MySQL5.7</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/Linux/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            Linux
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Linux/" style="color: #ffa2c4">Linux</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/MySQL/" style="color: #03a9f4">MySQL</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="centos7部署zabbix企业级监控（更换阿里云镜像）">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/6/22</div>
+                <a href="/2023/06/22/centos7-zabbix/">
+                    <h3>Centos7 部署zabbix企业级监控（更换阿里云镜像）</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/Linux/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            Linux
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Linux/" style="color: #03a9f4">Linux</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="在windowsserver上安装sqlserver2008">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/9</div>
+                <a href="/2023/09/09/install-the-sql-server-2008/">
+                    <h3>在Windows server上安装 SQL server 2008</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/%E6%96%87%E7%AB%A0/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            文章
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/SQL-server/" style="color: #ff7d73">SQL server</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="配置sqlserver2008远程连接">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/9</div>
+                <a href="/2023/09/09/sqlserver-remote-connection/">
+                    <h3>配置SQL server 2008远程连接</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/%E6%96%87%E7%AB%A0/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            文章
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/SQL-server/" style="color: #00bcd4">SQL server</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="python的一些基础">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/15</div>
+                <a href="/2023/09/15/python01/">
+                    <h3>Python的一些基础</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/%E6%96%87%E7%AB%A0/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            文章
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #03a9f4">编程</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Python/" style="color: #ff7d73">Python</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="php基本语法">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/19</div>
+                <a href="/2023/09/19/basic-php-syntax/">
+                    <h3>PHP基本语法</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/PHP/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            PHP
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/PHP/" style="color: #ffa2c4">PHP</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #00bcd4">编程</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="php课堂小练习">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/19</div>
+                <a href="/2023/09/19/php-classroom-exercises/">
+                    <h3>PHP课堂小练习</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/PHP/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            PHP
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/PHP/" style="color: #ffa2c4">PHP</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #00bcd4">编程</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/" style="color: #ff7d73">课堂练习</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="python列表的基础知识">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/21</div>
+                <a href="/2023/09/21/pythons-use-of-lists/">
+                    <h3>Python 列表的基础知识</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/%E6%96%87%E7%AB%A0/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            文章
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #00bcd4">编程</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Python/" style="color: #ff7d73">Python</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="python列表练习作业">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/21</div>
+                <a href="/2023/09/21/python-list-practice-assignments/">
+                    <h3>Python 列表练习作业</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/%E6%96%87%E7%AB%A0/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            文章
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #03a9f4">编程</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/" style="color: #00bcd4">课堂练习</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Python/" style="color: #00a596">Python</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="python字典的一些基础知识">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/22</div>
+                <a href="/2023/09/22/python-some-basics-of-dictionaries/">
+                    <h3>Python 字典的一些基础知识</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/%E6%96%87%E7%AB%A0/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            文章
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #ffa2c4">编程</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Python/" style="color: #03a9f4">Python</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="php和html的课堂小练习">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/9/26</div>
+                <a href="/2023/09/26/php-mini-calendar/">
+                    <h3>PHP和HTML的课堂小练习</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/PHP/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            PHP
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/PHP/" style="color: #ffa2c4">PHP</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #03a9f4">编程</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/" style="color: #ff7d73">课堂练习</a>
+                        </span>
+                        
+                    </span>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline" data-title="python的控制台登录注册小练习">
+            <div class="timeline-tail"></div>
+            <div class="timeline-content">
+                <div class="item-time">2023/10/7</div>
+                <a href="/2023/10/07/python1/">
+                    <h3>Python的控制台登录注册小练习</h3>
+                </a>
+                <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/%E6%96%87%E7%AB%A0/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            文章
+                        </a>
+                    </span>
+                    
+                    
+                    <span class="tags">
+                        <span class="icon">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </span>
+                        
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #00bcd4">编程</a>
+                        </span>
+                        
+                        <span class="tag">
+                            
+                            <a href="/tags/Python/" style="color: #03a9f4">Python</a>
+                        </span>
+                        
+                    </span>
                     
                 </div>
             </div>

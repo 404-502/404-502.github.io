@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Python的字典 | 404_502&#39;s blog</title>
+    <title>PHP课堂小练习 | 404_502&#39;s blog</title>
     <meta name="author" content="404_502" />
     <meta name="description" content="备用站点" />
     <meta name="keywords" content="blog" />
@@ -49,7 +49,7 @@
             <div id="loading" v-show="loading">
                 <div id="loading-circle">
                     <h2>LOADING</h2>
-					<p>由于本站是部署在GitHub上，所有第一次加载有点慢</p>
+					<p>由于本站是部署在GitHub上，如果你不会魔法可能会非常慢</p>
                     <p>若第二次加载还慢请开启浏览器缓存 浏览器默认开启</p>
                     <img src="/images/Catsprint.gif" />
                 </div>
@@ -151,100 +151,93 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>Python的字典</h1>
+        <h1>PHP课堂小练习</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/9
+            2023/9/19
         </span>
         
+        <span class="category">
+            <a href="/categories/PHP/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                PHP
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/PHP/" style="color: #03a9f4">PHP</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #00bcd4">编程</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/" style="color: #ffa2c4">课堂练习</a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        <h1 id="一、字典的创建"><a href="#一、字典的创建" class="headerlink" title="一、字典的创建"></a>一、字典的创建</h1><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><ul>
-<li>使用 “{}” 字面量创建</li>
-</ul>
-<pre><code class="python">dict1 = &#123;&#39;name&#39;:&#39;张三&#39;,&#39;id&#39;:&#39;02220360&#39;,&#39;sex&#39;:&#39;男&#39;,&#39;s_class&#39;:&#39;2222班&#39;&#125;
-print(dict1)
+        <p>通过传入日期，计算那是星期几并输出（因为没有做HTML页面，所以这里用变量代替传入）</p>
+<pre><code>&lt;?php
+$year = 2023;
+$month = 9;
+$day = 19;
+$week = date(&quot;w&quot;, mktime(0, 0, 0, $month, $day, $year));
+switch($week)&#123;
+    case 0:
+        $weeks = &quot;日&quot;;
+        break;
+    case 1:
+        $weeks = &quot;一&quot;;
+        break;
+    case 2:
+        $weeks = &quot;二&quot;;
+        break;
+    case 3:
+        $weeks = &quot;三&quot;;
+        break;
+    case 4:
+        $weeks = &quot;四&quot;;
+        break;
+    case 5:
+        $weeks = &quot;五&quot;;
+        break;
+    case 6:
+        $weeks = &quot;六&quot;;
+        break;
+&#125;
+echo &quot;&#123;$year&#125;年&#123;$month&#125;月&#123;$day&#125;日是星期&#123;$weeks&#125;&quot;;
+?&gt;
 </code></pre>
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><ul>
-<li>使用 dict () 函数创建</li>
-</ul>
-<pre><code class="python">dict2 = dict(&#123;&#39;name&#39;:&#39;李四&#39;,&#39;id&#39;:&#39;03200960&#39;,&#39;sex&#39;:&#39;男&#39;,&#39;s_class&#39;:&#39;2223班&#39;&#125;)
-print(dict2)
-</code></pre>
-<h1 id="二、字典的访问"><a href="#二、字典的访问" class="headerlink" title="二、字典的访问"></a>二、字典的访问</h1><ol>
-<li>使用键访问值</li>
-</ol>
-<pre><code class="python">#访问字典元素
-print(dict1[&#39;name&#39;])
-print(dict1[&#39;id&#39;])
-</code></pre>
-<ol start="2">
-<li>使用循环遍历</li>
-</ol>
-<pre><code class="python">#访问字典中的所有键
-for i in dict1.keys():
-    print(i)
- 
-#访问字典中所有的值：
-for i in dict1.values():
-    print(i)
- 
-# 访问字典中所有的键值对
-for i in dict1.items():
-    print(i)
-</code></pre>
-<ol start="3">
-<li>字典的嵌套</li>
-</ol>
-<pre><code class="python">#列表+字典 组成 表结构
-zx2222 = []
-zx2222.append(dict1)
-zx2222.append(dict2)
-print(zx2222)
- 
-#字典+字典 组成 表结构
-key = input(&#39;请输入你要查询的关键字&#39;)
-dict_zx2222 = &#123;&#39;id1&#39;:dict1,&#39;id2&#39;:dict2&#125;
-print(dict_zx2222[key])
-</code></pre>
-<h2 id="三、字典的常见操作"><a href="#三、字典的常见操作" class="headerlink" title="三、字典的常见操作"></a>三、字典的常见操作</h2><ol>
-<li>增加字典元素</li>
-</ol>
-<pre><code class="python">dict3 = &#123;&#125;
-id = input(&#39;请输入你的学号&#39;)
-dict3[&#39;name&#39;] = &#39;小明&#39;#使用键增加
-print(dict3)
-dict3[&#39;id&#39;] = id
-print(dict3)
-dict3.update(sex=&#39;男&#39;)#使用update()函数增加
-print(dict3)
-</code></pre>
-<ol start="2">
-<li>查找 &#x2F; 修改字典元素</li>
-</ol>
-<pre><code class="python"># dict3[&#39;name&#39;] = &#39;小明&#39;
-dict3.update(name=&#39;小明&#39;)
-print(dict3)
-</code></pre>
-<p>注意：update () 和 [键] 两种方法，即可以用于添加元素，也可以用于修改元素。区别在于键是否已经存在于字典中，如果存在则是修改，如果不存在则是增加</p>
-<ol start="3">
-<li><p>删除字典元素</p>
-<p> Ⅰ、使用 clear () 方法清空字典中所有的键值对</p>
-<p> Ⅱ、使用 pop () 方法删除字典中指定的键值对</p>
-<p> Ⅲ、使用 popitem () 方法随机删除字典中一个键值对</p>
-</li>
-</ol>
 
     </div>
     
     
     
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
     
     
     
@@ -280,6 +273,24 @@ print(dict3)
     <script src="/js/main.js"></script>
     
     
+<script
+    src="https://giscus.app/client.js"
+    data-repo="404-502/404-502.github.io"
+    data-repo-id="R_kgDOKdh3wA"
+    data-category="General"
+    data-category-id="DIC_kwDOKdh3wM4CZ_I5"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+
 
 
 

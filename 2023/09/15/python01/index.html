@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Python的一些基础 | 404_502&#39;s blog</title>
+    <meta name="author" content="404_502" />
+    <meta name="description" content="备用站点" />
+    <meta name="keywords" content="blog" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+					<p>由于本站是部署在GitHub上，如果你不会魔法可能会非常慢</p>
+                    <p>若第二次加载还慢请开启浏览器缓存 浏览器默认开启</p>
+                    <img src="/images/Catsprint.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>404_502&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://404-502.icu/">
+            <i class="fa-solid fa-house-chimney fa-fw"></i>
+            <span>&ensp;主站</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;404_502&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页</div>
+                    </div>
+                </a>
+                
+                <a target="_blank" rel="noopener" href="https://404-502.icu/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house-chimney fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主站</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Python的一些基础</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/9/15
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%96%87%E7%AB%A0/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                文章
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #ffa2c4">编程</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python/" style="color: #03a9f4">Python</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="一、编码风格"><a href="#一、编码风格" class="headerlink" title="一、编码风格"></a>一、编码风格</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><ol>
+<li>单行注释：使用#表示，例如：# 注释内容</li>
+<li>多行注释：使用三引号（三个单引号或三个双引号）， 常用于文件开头的说明</li>
+</ol>
+<h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><ol>
+<li>缩进（tab键）：编写代码时，根据缩进数量来区别代码的层次结构</li>
+<li>冒号：循环、分支、一些关键字后面，<strong>表示代码段的开始</strong></li>
+<li>空格与缩进：4个空格&#x3D;1个缩进，<strong>缩进与空格不能混合使用，</strong>使用tab键进行缩进最方便</li>
+</ol>
+<h2 id="二、变量和数据类型"><a href="#二、变量和数据类型" class="headerlink" title="二、变量和数据类型"></a>二、变量和数据类型</h2><h3 id="1-变量命名规则"><a href="#1-变量命名规则" class="headerlink" title="1. 变量命名规则"></a>1. 变量命名规则</h3><ul>
+<li>由字母、下划线和数字，但是不能以数字开头</li>
+<li>不能跟关键字相同</li>
+<li>严格区分大小</li>
+</ul>
+<h3 id="2-变量的使用"><a href="#2-变量的使用" class="headerlink" title="2. 变量的使用"></a>2. 变量的使用</h3><p>直接赋值使用，不需要声明。<strong>没有赋值的变量，python就认为其不存在</strong><br><strong>Python支持同时给多个变量赋值，并且不限制数据类型</strong></p>
+<h3 id="3-python的数据类型"><a href="#3-python的数据类型" class="headerlink" title="3. python的数据类型"></a>3. python的数据类型</h3><p>一共有6种数据类型：数字型、字符串、元组、列表（本质是数组）、字典和集合<br>数字型：整数、浮点数、复数、布尔（True False）<br>字符串：使用单引号、双引号、<strong>三引号</strong>表示（三引号表示字符串时，必须跟着变量赋值）</p>
+<h3 id="4-输入输出"><a href="#4-输入输出" class="headerlink" title="4. 输入输出"></a>4. 输入输出</h3><p>输出：print()<br>输入：input()，input函数是<strong>以字符串的形式存储数据</strong>的，如果输入的是数字，需要进行数据类型转换</p>
+<h2 id="三、语法格式"><a href="#三、语法格式" class="headerlink" title="三、语法格式"></a>三、语法格式</h2><p>使用<strong>缩进和冒号</strong>来表示代码段<br>使用<strong>TAB</strong>键来表示缩进，相同缩进的代码表示同一代码段，不同缩进的代码有上下层关系</p>
+<p>注释：使用#号进行单行或多行注释，还可以是用’’’ ‘’’</p>
+<h2 id="四、数据类型"><a href="#四、数据类型" class="headerlink" title="四、数据类型"></a>四、数据类型</h2><p>6种数据类型：数字型、字符串、列表、元组、字典、集合<br><strong>布尔值（True和False）也属于数字型</strong><br>字符串：单引号、双引号、三引号都可以表示字符串，三引号常用长字符串</p>
+<h2 id="五、输入输出"><a href="#五、输入输出" class="headerlink" title="五、输入输出"></a>五、输入输出</h2><p>输出：print()<br>输入：input()，<strong>输入的数据不论是什么内容，均已字符串的形式存储</strong></p>
+<h2 id="六、程序控制结构"><a href="#六、程序控制结构" class="headerlink" title="六、程序控制结构"></a>六、程序控制结构</h2><p><strong>分支结构：单分支（if），双分支（if-else)，多分支（if-elif-else）</strong><br>单分支：</p>
+<pre><code>if(条件表达式):
+    # 代码段
+</code></pre>
+<p>双分支：</p>
+<pre><code>if(条件表达式):
+    # 代码段
+else:
+    # 代码段
+</code></pre>
+<p>多分支：</p>
+<pre><code>if(条件表达式1):
+    # 代码段
+elif(条件表达式2):
+    # 代码段
+elif(条件表达式n):
+    # 代码段
+else:
+    # 代码段
+</code></pre>
+<p><strong>逻辑运算：且（and）、或（or）、取反（not）</strong></p>
+<p>案例：</p>
+<pre><code>years = int(input(&quot;请输入年份：&quot;))
+if(years % 4 ==0 and years % 100 !=0 or years % 400 == 0):
+    print(years,&quot;是闰年&quot;)
+else:
+    print(years,&quot;不是闰年&quot;)
+</code></pre>
+<p><strong>循环结构：</strong></p>
+<p><strong>for循环</strong>：</p>
+<p>格式：for 参数 in 循环体</p>
+<pre><code>str = &quot;轻舟已过万重山!!!&quot;
+for i in str:
+    print(i)
+
+# 输出结果：
+# 轻
+# 舟
+# 已
+# 过
+# 万
+# 重
+# 山
+# !
+# !
+# !
+</code></pre>
+<p><strong>while循环</strong>：</p>
+<pre><code>while(调教表达式):
+    # 代码段
+</code></pre>
+<p><strong>range</strong>：</p>
+<p>range()的使用主要是和for循环一起出现的。<br>range()的形式有三种：</p>
+<ol>
+<li>range(stop) 默认从0开始，给出结束的int型参数即可</li>
+<li>range(start,stop)</li>
+<li>range(start,stop,step)</li>
+</ol>
+<h2 id="七、字符串的输出"><a href="#七、字符串的输出" class="headerlink" title="七、字符串的输出"></a>七、字符串的输出</h2><p>转义字符：</p>
+<ul>
+<li>\n:换行</li>
+<li>\t：横向制表位</li>
+<li>\b:一个退格</li>
+<li>\r：回车</li>
+</ul>
+<p>Python中有三种字符串的输出形式（字符串+变量）</p>
+<ul>
+<li>使用%格式化字符串（最不常用）</li>
+</ul>
+<p><img src="https://upyun.404-502.icu/2023/09/20230914034133420.png"></p>
+<pre><code>age = 5
+print(&quot;你的年龄是%d岁&quot; % age)
+</code></pre>
+<ul>
+<li>使用format()方法格式化字符串</li>
+</ul>
+<p>**格式：string.format(**<strong>变量)</strong></p>
+<p>使用{}表示占位符，并且多个变量使用逗号分隔，按照顺序书写</p>
+<pre><code>name = &#39;jack&#39;
+age = &quot;10&quot;
+print(&quot;我的姓名是：&#123;&#125;,我的年龄是&#123;&#125;&quot;.format(name,age))
+</code></pre>
+<p>当变量个数比较多的时候，可以通过指定位置顺序进行变量输出</p>
+<pre><code>name = &#39;jack&#39;
+str = &#39;我的年龄是&#123;1&#125;,我的姓名是&#123;0&#125;&#39;
+age = &quot;10&quot;
+print(str.format(name,age))
+
+name = &#39;jack&#39;
+str = &#39;我的年龄是&#123;age&#125;,我的姓名是&#123;name&#125;&#39;
+age = &quot;10&quot;
+print(str.format(name=name,age=age)) 
+</code></pre>
+<ul>
+<li>使用f-string格式化字符串</li>
+</ul>
+<pre><code>print(f&quot;我的年龄是&#123;age&#125;，我的姓名是&#123;name&#125;&quot;)
+</code></pre>
+<p>一些案例：</p>
+<pre><code>#&#123;&#125;是占位符
+#format的第一种方法
+name = &#39;炮师傅&#39;
+age = 18
+no = &#39;123456789&#39;
+str = &#39;我的姓名是：&#123;&#125;,我的年龄是：&#123;&#125;,我的学号是：&#123;&#125;&#39;
+print(str.format(name,age,no))
+
+#format的第二种方法（当不知变量有多少个时使用,占位符里面写变量名）格式如下：
+str = &#39;我的姓名是：&#123;name&#125;,我的年龄是：&#123;age&#125;,我的学号是：&#123;no&#125;&#39;
+print(str.format(name=name,age=age,no=no))
+
+#format的第三种方法（按传入的顺序在占位符中写（类似下标）比如name是0，age是1）格式如下：
+str = &#39;我的姓名是：&#123;0&#125;,我的年龄是：&#123;1&#125;，我的学号是：&#123;2&#125;&#39;
+print(str.format(name,age,no))
+
+#f-string的使用方法
+#格式 print(f&quot;&quot;)
+print(f&quot;我的年龄是：&#123;age&#125;,我的姓名是：&#123;name&#125;,我的学号是：&#123;no&#125;&quot;)
+
+#小练习(输入自己的信息并用f-string的方式输出出来)
+myName = input(&quot;请输入姓名：&quot;)
+myAge = int(input(&quot;请输入年龄：&quot;))
+myNo = input(&quot;请输入学号&quot;)
+print(f&quot;我的年龄是：&#123;myAge&#125;,我的姓名是：&#123;myName&#125;,我的学号是：&#123;myNo&#125;&quot;)
+</code></pre>
+<h2 id="八、字符串的常规操作"><a href="#八、字符串的常规操作" class="headerlink" title="八、字符串的常规操作"></a>八、字符串的常规操作</h2><h3 id="1、查找与替换"><a href="#1、查找与替换" class="headerlink" title="1、查找与替换"></a>1、查找与替换</h3><p><strong>字符串的查找：在原文串中找到指定的子串</strong><br>格式：str.find(sub[,start,end])<br>Str：原文串<br>Sub：子串<br>Start：查找起始位置，默认从0开始<br>End：查找结束位置，默认最后一个字符<br>返回值：如果没有找到则返回-1，如果找到了则返回第一次出现的下标，并且只返回第一次出现的下标</p>
+<p><strong>替换：字符串中的子串替换成新的子串</strong></p>
+<p>格式：<strong>str.replace(old,new[,count])</strong><br>Old:表示被替换的子串<br>New：新的子串<br>Count：替换的次数，默认是全部替换 返回值：如果原文串中存在要替换的子串，那么返回替换后的完整字符串。如果原文串中不存在要替换的子串，则返回原文串</p>
+<h3 id="2、分割与拼接"><a href="#2、分割与拼接" class="headerlink" title="2、分割与拼接"></a>2、分割与拼接</h3><p><strong>分割：按照指定的分隔符对字符串进行拆分，返回拆分结果</strong><br><strong>格式：str.split()</strong><br>Str：分隔符<br>Maxsplit：表示分割次数，默认是全部分割<br>返回值：以列表（数组）返回分割的结果</p>
+<p><strong>拼接：将若干个字符串合并生成一个新的字符串</strong><br>1、使用“+”号进行拼接</p>
+<pre><code>s1 = &quot;hello&quot;
+s2 =&quot;world&quot;
+s3 = &quot;!&quot;
+print(s1+s2+s3)
+</code></pre>
+<p>2、使用 join()方法进行拼接<br>格式：str.join(i)<br>i:表示要拼接的字符串<br>Str：拼接的符号</p>
+<pre><code>s1 = &quot;hello&quot;
+syn = &quot;*&quot;
+r = syn.join(s1)
+print(r)
+</code></pre>
+<h3 id="3、删除"><a href="#3、删除" class="headerlink" title="3、删除"></a>3、删除</h3><p>在字符串的头部或者尾部删除指定的字符</p>
+<ol>
+<li>lstrip(字符) 方法用于截掉字符串<strong>左边</strong>的空格（默认）或指定字符</li>
+<li>rstrip() 删除 string 字符串末尾的指定字符（默认为空格）</li>
+<li>Strip():删除字符串头部和尾部的指定字符</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            2022 - 2023 &copy; 404_502
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;404_502
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="404-502/404-502.github.io"
+    data-repo-id="R_kgDOKdh3wA"
+    data-category="General"
+    data-category-id="DIC_kwDOKdh3wM4CZ_I5"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>

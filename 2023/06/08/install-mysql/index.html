@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>About | 404_502&#39;s blog</title>
+    <title>Centos7 yum方式安装MySQL5.7 | 404_502&#39;s blog</title>
     <meta name="author" content="404_502" />
     <meta name="description" content="备用站点" />
     <meta name="keywords" content="blog" />
@@ -151,21 +151,130 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>About</h1>
+        <h1>Centos7 yum方式安装MySQL5.7</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/8
+            2023/6/8
         </span>
         
+        <span class="category">
+            <a href="/categories/Linux/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Linux
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux/" style="color: #ffa2c4">Linux</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/MySQL/" style="color: #00bcd4">MySQL</a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        <p>404-502.icu的备用站点</p>
+        <p>首先准备好系统，并连接上去</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608134731141.png"></p>
+<p>在CentOS中默认安装有MariaDB，这个是MySQL的分支，但为了需要，还是要在系统中安装MySQL，而且安装完成之后可以直接覆盖掉MariaDB。</p>
+<h2 id="1、下载并安装MySQL官方的-Yum-Repository"><a href="#1、下载并安装MySQL官方的-Yum-Repository" class="headerlink" title="1、下载并安装MySQL官方的 Yum Repository"></a>1、下载并安装MySQL官方的 Yum Repository</h2><p>（若没有wget命令，就执行安装这个命令 <code>yum install -y wget</code> ）</p>
+<p>使用下面的命令就直接下载了安装用的Yum Repository，大概25KB的样子，然后就可以直接yum安装了。</p>
+<pre><code>wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm
+</code></pre>
+<p>如果wget下载慢或无法下载，就<a target="_blank" rel="noopener" href="https://kodcloud.404-502.icu/#s/9rWK8KLg">点击下载</a>，把下载的这个rpm文件上传到Linux里，和wget是一样的效果</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608141053121.png"></p>
+<p>之后就执行下面的代码，开始安装MySQL服务器</p>
+<pre><code>yum -y install mysql57-community-release-el7-10.noarch.rpm
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608141132364.png"></p>
+<p>原因是Mysql的GPG升级了，需要重新获取，所以执行下面的代码</p>
+<pre><code>rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608141207708.png"></p>
+<p>这步可能会花些时间，安装完成后就会覆盖掉之前的mariadb</p>
+<pre><code>yum -y install mysql-community-server
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608144104653.png"></p>
+<h2 id="2、MySQL数据库设置"><a href="#2、MySQL数据库设置" class="headerlink" title="2、MySQL数据库设置"></a>2、MySQL数据库设置</h2><p>首先启动MySQL</p>
+<pre><code>systemctl start mysqld.service
+</code></pre>
+<p>查看MySQL运行状态，运行状态如图</p>
+<pre><code>systemctl status mysqld.service
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608144155716.png"></p>
+<p>此时MySQL已经开始正常运行，不过要想进入MySQL还得先找出此时root用户的密码，通过如下命令可以在日志文件中找出密码</p>
+<pre><code>grep &quot;password&quot; /var/log/mysqld.log
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608144217676.png"></p>
+<p>所以这里我们的密码为 <code>:&amp;am5Y9tUR1t</code></p>
+<p>到这里我们需要更改掉初始密码，MySQL对密码强度会有检查，不方便我们的操作，可以把密码强度检查关了，代码如下（当然也可以不关，那就按要求设密码就行，可通过目录跳过这部分）</p>
+<p>登录MySQL</p>
+<pre><code>mysql -uroot -p
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608144659681.png"></p>
+<p>这是输入密码，可以粘贴，密码是隐藏的</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608144836815.png"></p>
+<p>登录进来后，如果要想查看初始的密码规则，则需要先把初始密码改掉，命令如下（加了下划线的部分是新设置的密码）</p>
+<pre><code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;am5?Y9tU!^Ct&#39;;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608145933498.png"></p>
+<p>现在就可以查看密码规则了</p>
+<pre><code>SHOW VARIABLES LIKE &#39;validate_password%&#39;;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608145955244.png"></p>
+<p>密码的长度是由validate_password_length决定的，而validate_password_length的计算公式是：</p>
+<pre><code>validate_password_length = validate_password_number_count +validate_password_special_char_count + (2 * validate_password_mixed_case_count)
+</code></pre>
+<p>我的是已经修改过的，初始情况下第一个的值是ON，validate_password_length是8。可以通过如下命令修改</p>
+<pre><code>set global validate_password_policy=0;
+set global validate_password_length=1;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608150507331.png"></p>
+<p>设置之后就是我上面查出来的那几个值了，此时密码就可以设置的很简单，例如1234之类的。到此数据库的密码设置就完成了</p>
+<pre><code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608150624240.png"></p>
+<p>但此时还有一个问题，就是因为安装了Yum Repository，以后每次yum操作都会自动更新，需要把这个卸载掉：</p>
+<pre><code>先输入 exit 退出MySQL，在执行下面的代码
+yum -y remove mysql57-community-release-el7-10.noarch
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608150835150.png"></p>
+<p>此时才算真的完成了</p>
+<h2 id="3、解决1130错误"><a href="#3、解决1130错误" class="headerlink" title="3、解决1130错误"></a>3、解决1130错误</h2><p>这时候用Navicat去远程连接是连接不上的，因为MySQL默认的root用户只能localhost登录，所以要更改为所以IP都可以登录，重新回到MySQL中</p>
+<pre><code>mysql -u root -p
+</code></pre>
+<p>然后输入密码，进入MySQL</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608151053457.png"></p>
+<p>然后分别按顺序执行下面的代码即可</p>
+<pre><code>use mysql;
+select host from user where user=&#39;root&#39;;
+update user set host = &#39;%&#39; where user =&#39;root&#39;;
+flush privileges;
+select &#39;host&#39; from user where user=&#39;root&#39;;
+</code></pre>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608151251954.png"></p>
+<p>现在就可以使用Navicat来远程登录了，输入对应的IP和密码，点击测试</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608151533656.png"></p>
+<p>成功！</p>
+<p><img src="https://upyun.404-502.icu/2023/06/20230608151618167.png"></p>
 
     </div>
     

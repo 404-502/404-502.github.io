@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>PHP基本语法 | 404_502&#39;s blog</title>
+    <meta name="author" content="404_502" />
+    <meta name="description" content="备用站点" />
+    <meta name="keywords" content="blog" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+					<p>由于本站是部署在GitHub上，如果你不会魔法可能会非常慢</p>
+                    <p>若第二次加载还慢请开启浏览器缓存 浏览器默认开启</p>
+                    <img src="/images/Catsprint.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>404_502&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://404-502.icu/">
+            <i class="fa-solid fa-house-chimney fa-fw"></i>
+            <span>&ensp;主站</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;404_502&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页</div>
+                    </div>
+                </a>
+                
+                <a target="_blank" rel="noopener" href="https://404-502.icu/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house-chimney fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主站</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>PHP基本语法</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/9/19
+        </span>
+        
+        <span class="category">
+            <a href="/categories/PHP/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                PHP
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/PHP/" style="color: #ff7d73">PHP</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #03a9f4">编程</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="一、程序结构"><a href="#一、程序结构" class="headerlink" title="一、程序结构"></a>一、程序结构</h2><pre><code class="php">&lt;?php
+
+?&gt;
+</code></pre>
+<p><font color=red>不可以嵌套使用，且各字符之间不能出现空格</font></p>
+<p>注释：</p>
+<ol>
+<li>&#x2F;&#x2F;表示单行注释</li>
+<li>&#x2F;* … *&#x2F;表示多行注释</li>
+</ol>
+<p><strong>Vs code注释快捷键ctrl+?</strong></p>
+<h2 id="二、常量与变量"><a href="#二、常量与变量" class="headerlink" title="二、常量与变量"></a>二、常量与变量</h2><p><strong>常量</strong>：在程序中不可改变其值的名称</p>
+<p>定义：</p>
+<ul>
+<li>define(常量名称[全大写],常量的值)</li>
+<li>const 常量名&#x3D;常量值</li>
+</ul>
+<p>区别：</p>
+<p><strong>define 可以在代码段中任意位置使用</strong>，const只能在php代码的最顶端</p>
+<p><strong>变量</strong>：</p>
+<ol>
+<li><strong>必须以“$”作为开头</strong>，由数字、字母和下划线组成，且不能以数字开头</li>
+<li>严格区分大小写</li>
+<li>定义即可直接使用</li>
+</ol>
+<p>可变变量：使用$$表示的变量（<strong>容易出现安全漏洞</strong>）</p>
+<p>系统变量（关联数组）：</p>
+<p>$_POST :对应表单method&#x3D;post<br>$_GET :对应表单method&#x3D;get<br>$_COOKIE :http cookie传递的数据<br>$_FILES :文件</p>
+<h2 id="三、输出语句"><a href="#三、输出语句" class="headerlink" title="三、输出语句"></a>三、输出语句</h2><p><code>echo(),var\_dump()</code></p>
+<p>当需要多个字符串拼接输出时，有两种选择，一种.一种是,</p>
+<p>输出方式：</p>
+<ol>
+<li>直接输出单个变量的值 <code>echo $name;</code></li>
+<li>拼接式输出：<code>echo &quot;我的名字是：&quot;,$myname; echo “hello”,$name,”!”;</code></li>
+<li>在字符串中直接输出 “<code>&lt;p&gt; my name is &#123;$myname&#125;./&lt;p&gt;</code>” {}内部的$之前，不能有任何符号</li>
+</ol>
+<h2 id="四、控制结构"><a href="#四、控制结构" class="headerlink" title="四、控制结构"></a>四、控制结构</h2><h3 id="1、分支结构"><a href="#1、分支结构" class="headerlink" title="1、分支结构"></a>1、分支结构</h3><pre><code class="php">单分支
+if(条件表达式)&#123;
+    代码段
+&#125;
+双分支
+if(条件表达式)&#123;
+    代码段
+&#125;
+else&#123;
+    代码段
+&#125;
+
+多分支：
+if(条件表达式1)&#123;
+    代码段1
+&#125;
+else if(条件表达式2) &#123;
+    代码段2
+&#125; 
+...
+else if(条件表达式n) &#123;
+    代码段n
+&#125;
+else&#123;
+    代码段
+&#125;
+
+switch($n)&#123;
+    case 1:&#123;
+        代码段1;
+        break;
+    &#125;
+    ...
+    case x:&#123;
+        代码段x;
+        break;
+    &#125;
+    default:&#123;
+        代码段;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><p>根据年份月份，输出是否是闰年，月份有多少天<br>思路：</p>
+<ol>
+<li>直接使用<strong>变量赋值的形式</strong>来确定年和月，共两个变量</li>
+<li>闰年判断：能被4整除且不能被100整除，能被400整除</li>
+<li>2.1如果是闰年：使用一个变量来表示是否是闰年，$flag &#x3D;1是闰年，2月有29天，</li>
+<li>2.2如果不是闰年：$flag&#x3D;0,2有28天</li>
+</ol>
+<img src="/2023/09/19/basic-php-syntax/20230919082617295.png" class="">
+
+<p>5. 月份的判断：多分支（switch），第一类：4,6,9,11：30天，第二类1,3,5,7,8，10,12:31天，第三类：2，判断是否是闰年 【分支结构嵌套】</p>
+<img src="/2023/09/19/basic-php-syntax/20230919082833191.png" class="">
+
+<p>6. 输出结果</p>
+<img src="/2023/09/19/basic-php-syntax/20230919082903909.png" class="">
+
+<p>测试样例：<br>输入：2020,2<br>输出：2020年是闰年，2月有29天。</p>
+<p>7. 例子：</p>
+<pre><code class="php">
+$year = 2000;
+$month = 2;
+
+if ($year % 4 ==0 &amp;&amp; $year % 100 !=0  $year % 400 == 0)&#123;
+    $flag = 1;
+&#125;
+else&#123;
+    $flag = 0;
+&#125;
+
+switch($month)&#123;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+        $day = 30;
+        break;
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+        $day = 31;
+        break;
+    case 2:
+        if ($flag == 1)&#123;
+            $day = 29;
+        &#125;
+        else&#123;
+            $day = 28;
+        &#125;
+        break;
+&#125;
+
+if ($flag == 1)&#123;
+    echo&quot;&#123;$year&#125;年是闰年，&#123;$month&#125;月有&#123;$day&#125;天&quot;;
+&#125;
+else if($flag == 0)&#123;
+    echo&quot;&#123;$year&#125;年是平年，&#123;$month&#125;月有&#123;$day&#125;天&quot;;
+&#125;
+</code></pre>
+<h3 id="2、循环结构"><a href="#2、循环结构" class="headerlink" title="2、循环结构"></a>2、循环结构</h3><p>循环：在程序中<strong>重复</strong>执行某个功能（简单操作）而设置的一种程序结构</p>
+<pre><code class="php">// for 、foreach()、while、 do while
+// for(表达式1;表达式2;表达式3)&#123;
+//     循环体
+// &#125;
+
+$sum = 0;
+for($n=1;$n&lt;=100;$n++)&#123;
+    $sum = $sum + $n;
+&#125;
+echo $sum;
+</code></pre>
+<h2 id="五、数组"><a href="#五、数组" class="headerlink" title="五、数组"></a>五、数组</h2><h3 id="1-数组"><a href="#1-数组" class="headerlink" title="1. 数组"></a>1. 数组</h3><p>$sum &#x3D; 1;&#x2F;&#x2F;只能存储一个数据<br>$arr&#x3D;[1,2,3]&#x2F;&#x2F;存储多个数据，线性数据结构（线性数组，一维数组（一个下标）），二维数组[1,2,3,4,5,6,7,8,9]3*3（有行标有列标）</p>
+<h3 id="2-数组的定义"><a href="#2-数组的定义" class="headerlink" title="2. 数组的定义"></a>2. 数组的定义</h3><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><pre><code class="php">$arr1 = array(&#39;jack&#39;,20,&#39;03220950&#39;);
+ var_dump($arr1);
+</code></pre>
+<p>Var_dump常用于数组数据的输出，会把数组内的详细内容输出</p>
+<img src="/2023/09/19/basic-php-syntax/20230919083730596.png" class="">
+
+<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><pre><code class="php">$arr2 = [&#39;apple&#39;,2.5,10.5,true];
+echo $arr2[0];
+</code></pre>
+<p><strong>获取数组的长度：</strong><br>count(数组名)</p>
+<p>PHP中数组的分类：</p>
+<ul>
+<li><strong>普通数组（索引数组）</strong>：通过下标（索引）就可以访问到数组元素的数组。</li>
+<li><strong>关联数组</strong>：带有指定键的数组，使用键值对来访问数组，使用<strong>key&#x3D;&gt;value</strong>的方式设置各个数组元素。</li>
+</ul>
+<pre><code class="php">$arr3 = array(&quot;name&quot;=&gt;&quot;jack&quot;,&quot;age&quot;=&gt;20,&quot;id&quot;=&gt;&#39;03220950&#39;);//定义一个关联数组
+    var_dump($arr3);
+    echo $arr3[&quot;id&quot;];//访问关联数组中的元素
+</code></pre>
+<ul>
+<li>混合数组:索引+关联</li>
+<li>二维数组</li>
+</ul>
+<h3 id="3-数组的遍历"><a href="#3-数组的遍历" class="headerlink" title="3. 数组的遍历"></a>3. <strong>数组的遍历</strong></h3><pre><code class="php">$admin = 0;
+$arr4 = array(&quot;admin&quot;=&gt;&quot;1&quot;);
+foreach($arr4 as $key=&gt;$value)&#123;
+    $$key = $value;
+ &#125;
+foreach($arr1 as $value)&#123;
+        echo $value.&quot;&lt;br&gt;&quot;;
+    &#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            2022 - 2023 &copy; 404_502
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;404_502
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="404-502/404-502.github.io"
+    data-repo-id="R_kgDOKdh3wA"
+    data-category="General"
+    data-category-id="DIC_kwDOKdh3wM4CZ_I5"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>
