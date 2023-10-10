@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>php 表单提交 | 404_502&#39;s blog</title>
+    <meta name="author" content="404_502" />
+    <meta name="description" content="备用站点" />
+    <meta name="keywords" content="blog" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+					<p>由于本站是部署在GitHub上，如果你不会魔法可能会非常慢</p>
+                    <p>若第二次加载还慢请开启浏览器缓存 浏览器默认开启</p>
+                    <img src="/images/Catsprint.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>404_502&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;首页</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://404-502.icu/">
+            <i class="fa-solid fa-house-chimney fa-fw"></i>
+            <span>&ensp;主站</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;404_502&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">首页</div>
+                    </div>
+                </a>
+                
+                <a target="_blank" rel="noopener" href="https://404-502.icu/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house-chimney fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主站</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>php 表单提交</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/10
+        </span>
+        
+        <span class="category">
+            <a href="/categories/PHP/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                PHP
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/PHP/" style="color: #ff7d73">PHP</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #00bcd4">编程</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/" style="color: #00a596">课堂练习</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="HTML代码"><a href="#HTML代码" class="headerlink" title="HTML代码"></a>HTML代码</h2><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;个人介绍&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;h1&gt;个人介绍&lt;/h1&gt;
+    &lt;form action=&quot;./Personal_introduction.php&quot; method=&quot;post&quot; onsubmit=&quot;return check_form();&quot;&gt;
+        &lt;table border=&quot;1&quot;&gt;
+            &lt;tr&gt;
+                &lt;td&gt;姓名：&lt;/td&gt; 
+                &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;username&quot;&gt;&lt;/td&gt;
+                &lt;td id=&quot;username_text&quot;&gt;必须为6-10个字符&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;性别：&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;男&quot; checked=&quot;checked&quot;&gt;男&lt;/label&gt;
+                    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;女&quot;&gt;女&lt;/label&gt;
+                &lt;/td&gt;
+                &lt;td&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;年龄：&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;age&quot; name=&quot;age&quot;&gt;&lt;/td&gt;
+                &lt;td id=&quot;age_text&quot;&gt;取值为0-100&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;个人密码：&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;password&quot; id=&quot;pass&quot; name=&quot;pass&quot;&gt;&lt;/td&gt;
+                &lt;td id=&quot;pass_text&quot;&gt;必须为6-20个字符&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;确认密码：&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;password&quot; id=&quot;password&quot; name=&quot;password&quot;&gt;&lt;/td&gt;
+                &lt;td id=&quot;password_text&quot;&gt;与个人密码相同&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;你的爱好：&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot; name=&quot;love[]&quot; value=&quot;打游戏&quot;&gt;打游戏&lt;/label&gt;
+                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot; name=&quot;love[]&quot; value=&quot;吃饭&quot;&gt;吃饭&lt;/label&gt;
+                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot; name=&quot;love[]&quot; value=&quot;睡觉&quot;&gt;睡觉&lt;/label&gt;
+                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot; name=&quot;love[]&quot; value=&quot;刷短视频&quot;&gt;刷短视频&lt;/label&gt;
+                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot; name=&quot;love[]&quot; value=&quot;编程&quot;&gt;编程&lt;/label&gt;
+                &lt;/td&gt;
+                &lt;td id=&quot;love_text&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;你最喜欢的颜色：&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;select id=&quot;colour&quot; name=&quot;colour&quot;&gt;
+                        &lt;option value=&quot;0&quot;&gt;未选择&lt;/option&gt;
+                        &lt;option value=&quot;1&quot;&gt;红色&lt;/option&gt;
+                        &lt;option value=&quot;2&quot;&gt;绿色&lt;/option&gt;
+                    &lt;/select&gt;
+                &lt;/td&gt;
+                &lt;td id=&quot;colour_text&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;个人介绍：&lt;/td&gt;
+                &lt;td&gt;&lt;textarea id=&quot;introduce&quot; name=&quot;introduce&quot;&gt;&lt;/textarea&gt;&lt;/td&gt;
+                &lt;td id=&quot;introduce_text&quot;&gt;不能为空&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;submit&quot; name=&quot;submit&quot;&gt;
+                    &lt;input type=&quot;reset&quot; value=&quot;重置&quot;&gt;
+                &lt;/td&gt;
+                &lt;td&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/form&gt;
+    &lt;script src=&quot;./Personal_introduction.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<h2 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h2><pre><code class="js">//姓名验证
+let username = document.getElementById(&quot;username&quot;);
+let username_text = document.getElementById(&quot;username_text&quot;);
+
+username.onblur = function() &#123;
+    if (username.value.length &gt; 5 &amp;&amp; username.value.length &lt; 21) &#123;
+        username_text.innerText = &quot; √&quot;
+        username_text.style.color = &quot;green&quot;;
+    &#125;
+    else &#123;
+        username_text.innerText = &quot; × 必须为6-10个字符&quot;
+        username_text.style.color = &quot;red&quot;;
+    &#125;
+&#125;
+username.onclick = function() &#123;
+    username_text.innerText = &quot;必须为6-10个字符&quot;;
+    username_text.style.color = &quot;black&quot;;
+&#125;
+
+//年龄判断
+let age = document.getElementById(&quot;age&quot;);
+let age_text = document.getElementById(&quot;age_text&quot;);
+
+age.onblur = function() &#123;
+    if (!(/(^[0-9]\d*$)/.test(age.value)) &amp;&amp; age.value != &quot;&quot;) &#123;
+        age_text.innerText = &quot; × 必须为正整数&quot;
+        age_text.style.color = &quot;red&quot;;
+    &#125;
+    else if (age.value &gt; 0 &amp;&amp; age.value &lt; 101 &amp;&amp; age.value != &quot;&quot;) &#123;
+        age_text.innerText = &quot; √&quot;
+        age_text.style.color = &quot;green&quot;;
+    &#125;
+    else &#123;
+        age_text.innerText = &quot; × 取值为0-100&quot;
+        age_text.style.color = &quot;red&quot;;
+    &#125;
+&#125;
+age.onclick = function() &#123;
+    age_text.innerText = &quot;取值为0-100&quot;;
+    age_text.style.color = &quot;black&quot;;
+&#125;
+
+//密码判断
+let pass = document.getElementById(&quot;pass&quot;);
+let password = document.getElementById(&quot;password&quot;);
+let pass_text = document.getElementById(&quot;pass_text&quot;);
+let password_text = document.getElementById(&quot;password_text&quot;);
+
+pass.onblur = function() &#123;
+    if (pass.value.length &lt; 6 || pass.value.length &gt; 20) &#123;
+        pass_text.innerText = &quot; × 必须为6-20个字符&quot;
+        pass_text.style.color = &quot;red&quot;;
+    &#125;
+    else &#123;
+        pass_text.innerText = &quot; √&quot;
+        pass_text.style.color = &quot;green&quot;;
+    &#125;
+&#125;
+pass.onclick = function() &#123;
+    pass_text.innerText = &quot;必须为6-20个字符&quot;;
+    pass_text.style.color = &quot;black&quot;;
+&#125;
+password.onblur = function() &#123;
+    if (pass.value != password.value) &#123;
+        password_text.innerText = &quot; × 两次密码输入不一致&quot;;
+        password_text.style.color = &quot;red&quot;;
+    &#125;
+    else if (pass.value == password.value &amp;&amp; password.value != &quot;&quot;) &#123;
+        password_text.innerText = &quot; √&quot;;
+        password_text.style.color = &quot;green&quot;;
+    &#125;
+&#125;
+password.onclick = function() &#123;
+    password_text.innerText = &quot;与个人密码相同&quot;;
+    password_text.style.color = &quot;black&quot;;
+&#125;
+
+//个人介绍判断
+let introduce = document.getElementById(&quot;introduce&quot;);
+let introduce_text = document.getElementById(&quot;introduce_text&quot;);
+
+introduce.onblur = function() &#123;
+    if (introduce.value == &quot;&quot;) &#123;
+        introduce_text.innerText = &quot; × 不能为空&quot;;
+        introduce_text.style.color = &quot;red&quot;;
+    &#125;
+    else &#123;
+        introduce_text.innerText = &quot; √&quot;;
+        introduce_text.style.color = &quot;green&quot;;
+    &#125;
+&#125;
+introduce.onclick = function() &#123;
+    introduce_text.innerText = &quot;不能为空&quot;;
+    introduce_text.style.color = &quot;black&quot;;
+&#125;
+
+//爱好选择判断
+let love = document.getElementsByClassName(&quot;love&quot;);
+let love_text = document.getElementById(&quot;love_text&quot;);
+let love_L = 0;
+
+for (let i = 0; i &lt; love.length; i++) &#123;
+    love[i].onclick = function() &#123;
+        if (love[i].checked == true) &#123;
+            love_L = love_L + 1;
+        &#125;
+        else if (love[i].checked == false) &#123;
+            love_L = love_L - 1;
+        &#125;
+        if (love_L == 0) &#123;
+            love_text.innerText = &quot; × 至少选择一项&quot;;
+            love_text.style.color = &quot;red&quot;;
+        &#125;
+        else if (love_L != 0) &#123;
+            love_text.innerText = &quot;&quot;;
+            love_text.style.color = &quot;black&quot;;
+        &#125;
+    &#125;
+&#125;
+
+//颜色选择判断
+let colour = document.getElementById(&quot;colour&quot;);
+let colour_text = document.getElementById(&quot;colour_text&quot;);
+
+colour.onclick = function() &#123;
+    if (colour.selectedIndex == 0) &#123;
+        colour_text.innerText = &quot; × 请选择你喜欢的颜色&quot;;
+        colour_text.style.color = &quot;red&quot;;
+    &#125;
+    else if (colour.selectedIndex != 0) &#123;
+        colour_text.innerText = &quot;&quot;;
+        colour_text.style.color = &quot;black&quot;;
+    &#125;
+&#125;
+
+//提交按钮判断
+let submit = document.getElementById(&quot;submit&quot;);
+
+function check_form() &#123;
+    if (username.value.length &gt; 5 &amp;&amp; username.value.length &lt; 21) &#123;
+        username_text.innerText = &quot; √&quot;
+        username_text.style.color = &quot;green&quot;;
+    &#125;
+    else &#123;
+        username_text.innerText = &quot; × 必须为6-10个字符&quot;
+        username_text.style.color = &quot;red&quot;;
+        return false;
+    &#125;
+    if (!(/(^[0-9]\d*$)/.test(age.value)) &amp;&amp; age.value != &quot;&quot;) &#123;
+        age_text.innerText = &quot; × 必须为正整数&quot;
+        age_text.style.color = &quot;red&quot;;
+        return false;
+        
+    &#125;
+    else if (age.value &gt; 0 &amp;&amp; age.value &lt; 101 &amp;&amp; age.value != &quot;&quot;) &#123;
+        age_text.innerText = &quot; √&quot;
+        age_text.style.color = &quot;green&quot;;
+    &#125;
+    else &#123;
+        age_text.innerText = &quot; × 取值为0-100&quot;
+        age_text.style.color = &quot;red&quot;;
+        return false;
+    &#125;
+    if (pass.value.length &lt; 6 || pass.value.length &gt; 20) &#123;
+        pass_text.innerText = &quot; × 必须为6-20个字符&quot;
+        pass_text.style.color = &quot;red&quot;;
+        return false;
+    &#125;
+    else &#123;
+        pass_text.innerText = &quot; √&quot;
+        pass_text.style.color = &quot;green&quot;;
+    &#125;
+    if (pass.value != password.value) &#123;
+        password_text.innerText = &quot; × 两次密码输入不一致&quot;;
+        password_text.style.color = &quot;red&quot;;
+        return false;
+    &#125;
+    else if (pass.value == password.value &amp;&amp; password.value != &quot;&quot;) &#123;
+        password_text.innerText = &quot; √&quot;;
+        password_text.style.color = &quot;green&quot;;
+    &#125;
+    if (love_L == 0) &#123;
+        love_text.innerText = &quot; × 至少选择一项&quot;;
+        love_text.style.color = &quot;red&quot;;
+        return false;
+    &#125;
+    if (colour.selectedIndex == 0) &#123;
+        colour_text.innerText = &quot; × 请选择你喜欢的颜色&quot;;
+        colour_text.style.color = &quot;red&quot;;
+        return false;
+    &#125;
+    else if (colour.selectedIndex != 0) &#123;
+        colour_text.innerText = &quot;&quot;;
+        colour_text.style.color = &quot;black&quot;;
+    &#125;
+    if (introduce.value == &quot;&quot;) &#123;
+        introduce_text.innerText = &quot; × 不能为空&quot;;
+        introduce_text.style.color = &quot;red&quot;;
+        return false;
+    &#125;
+    else &#123;
+        introduce_text.innerText = &quot; √&quot;;
+        introduce_text.style.color = &quot;green&quot;;
+    &#125;
+    return true;
+&#125;
+</code></pre>
+<h2 id="php代码"><a href="#php代码" class="headerlink" title="php代码"></a>php代码</h2><pre><code class="php">&lt;?php
+$username=$_POST[&#39;username&#39;];
+$sex=$_POST[&#39;sex&#39;];
+$age=$_POST[&#39;age&#39;];
+$pass=$_POST[&#39;pass&#39;];
+$password=$_POST[&#39;password&#39;];
+$love=implode(&#39;,&#39;,$_POST[&#39;love&#39;]);
+$colour=$_POST[&#39;colour&#39;];
+$introduce=$_POST[&#39;introduce&#39;];
+
+echo &quot;你的名字是：&#123;$username&#125; &lt;br /&gt;&quot;;
+echo &quot;你的性别是：&#123;$sex&#125; &lt;br /&gt;&quot;;
+echo &quot;你的年龄是：&#123;$age&#125; &lt;br /&gt;&quot;;
+echo &quot;你的密码是：&#123;$password&#125; &lt;br /&gt;&quot;;
+echo &quot;你的爱好是：&#123;$love&#125; &lt;br /&gt;&quot;;
+echo &quot;你的颜色是：&#123;$colour&#125; &lt;br /&gt;&quot;;
+echo &quot;你的自我介绍是：&#123;$introduce&#125; &lt;br /&gt;&quot;;
+
+?&gt;
+</code></pre>
+<img src="/2023/10/10/php-submission/image-20231010110856966.png" class="" title="image-20231010110856966">
+
+<img src="/2023/10/10/php-submission/image-20231010110904101.png" class="" title="image-20231010110904101">
+
+<blockquote>
+<p>作者：404_502<br>版权声明: 本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"> CC BY-NC-SA 4.0</a>协议。转载请注明文章地址及作者</p>
+</blockquote>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            2022 - 2023 &copy; 404_502
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;404_502
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="404-502/404-502.github.io"
+    data-repo-id="R_kgDOKdh3wA"
+    data-category="General"
+    data-category-id="DIC_kwDOKdh3wM4CZ_I5"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>

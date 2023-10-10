@@ -179,17 +179,17 @@
             
             <span class="tag">
                 
-                <a href="/tags/PHP/" style="color: #00a596">PHP</a>
+                <a href="/tags/PHP/" style="color: #00bcd4">PHP</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #ffa2c4">编程</a>
+                <a href="/tags/%E7%BC%96%E7%A8%8B/" style="color: #00a596">编程</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/" style="color: #00bcd4">课堂练习</a>
+                <a href="/tags/%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/" style="color: #03a9f4">课堂练习</a>
             </span>
             
         </span>
@@ -387,206 +387,6 @@
 </code></pre>
 <h3 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h3><img src="/2023/09/26/php-mini-calendar/20230926032001481.png" class="" width="20230926032001481">
 
-<h2 id="HTML的个人介绍（加js验证）"><a href="#HTML的个人介绍（加js验证）" class="headerlink" title="HTML的个人介绍（加js验证）"></a>HTML的个人介绍（加js验证）</h2><p><strong>（随便写写，有错误还请多多见谅，也欢迎提出）</strong></p>
-<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><pre><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-    &lt;title&gt;个人介绍&lt;/title&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-    &lt;h1&gt;个人介绍&lt;/h1&gt;
-    &lt;form accept=&quot;&quot;&gt;
-        &lt;table border=&quot;1&quot;&gt;
-            &lt;tr&gt;
-                &lt;td&gt;姓名：&lt;/td&gt;
-                &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;username&quot;&gt;&lt;/td&gt;
-                &lt;td id=&quot;username_text&quot;&gt;必须为6-10个字符&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;性别：&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;age&quot; checked&gt;男&lt;/label&gt;
-                    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;age&quot;&gt;女&lt;/label&gt;
-                &lt;/td&gt;
-                &lt;td&gt;&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;年龄：&lt;/td&gt;
-                &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;age&quot;&gt;&lt;/td&gt;
-                &lt;td id=&quot;age_text&quot;&gt;取值为0-100&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;个人密码：&lt;/td&gt;
-                &lt;td&gt;&lt;input type=&quot;password&quot; id=&quot;pass&quot;&gt;&lt;/td&gt;
-                &lt;td id=&quot;pass_text&quot;&gt;必须为6-20个字符&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;确认密码：&lt;/td&gt;
-                &lt;td&gt;&lt;input type=&quot;password&quot; id=&quot;password&quot;&gt;&lt;/td&gt;
-                &lt;td id=&quot;password_text&quot;&gt;与个人密码相同&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;你的爱好：&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot;&gt;打游戏&lt;/label&gt;
-                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot;&gt;吃饭&lt;/label&gt;
-                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot;&gt;睡觉&lt;/label&gt;
-                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot;&gt;刷短视频&lt;/label&gt;
-                    &lt;label&gt;&lt;input type=&quot;checkbox&quot; class=&quot;love&quot;&gt;编程&lt;/label&gt;
-                &lt;/td&gt;
-                &lt;td id=&quot;love_text&quot;&gt;&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;你最喜欢的颜色：&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;select id=&quot;colour&quot;&gt;
-                        &lt;option value=&quot;0&quot;&gt;未选择&lt;/option&gt;
-                        &lt;option value=&quot;1&quot;&gt;红色&lt;/option&gt;
-                        &lt;option value=&quot;2&quot;&gt;绿色&lt;/option&gt;
-                    &lt;/select&gt;
-                &lt;/td&gt;
-                &lt;td id=&quot;colour_text&quot;&gt;&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;个人介绍：&lt;/td&gt;
-                &lt;td&gt;&lt;textarea id=&quot;introduce&quot;&gt;&lt;/textarea&gt;&lt;/td&gt;
-                &lt;td id=&quot;introduce_text&quot;&gt;不能为空&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;submit&quot;&gt;
-                    &lt;input type=&quot;reset&quot; value=&quot;重置&quot;&gt;
-                &lt;/td&gt;
-                &lt;td&gt;&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/table&gt;
-    &lt;/form&gt;
-    &lt;script&gt;
-        //姓名验证
-        let username = document.getElementById(&quot;username&quot;);
-        let username_text = document.getElementById(&quot;username_text&quot;);
-
-        username.onblur = function() &#123;
-            if (username.value.length &gt; 5 &amp;&amp; username.value.length &lt; 21) &#123;
-                username_text.innerText = &quot; √&quot;
-            &#125;
-            else &#123;
-                username_text.innerText = &quot; × 必须为6-10个字符&quot;
-            &#125;
-        &#125;
-        username.onclick = function() &#123;
-            username_text.innerText = &quot;必须为6-10个字符&quot;;
-        &#125;
-
-        //年龄判断
-        let age = document.getElementById(&quot;age&quot;);
-        let age_text = document.getElementById(&quot;age_text&quot;);
-
-        age.onblur = function() &#123;
-            if (!(/(^[0-9]\d*$)/.test(age.value)) &amp;&amp; age.value != &quot;&quot;) &#123;
-                age_text.innerText = &quot; × 必须为正整数&quot;
-            &#125;
-            else if (age.value &gt; 0 &amp;&amp; age.value &lt; 101 &amp;&amp; age.value != &quot;&quot;) &#123;
-                age_text.innerText = &quot; √&quot;
-            &#125;
-            else &#123;
-                age_text.innerText = &quot; × 取值为0-100&quot;
-            &#125;
-        &#125;
-        age.onclick = function() &#123;
-            age_text.innerText = &quot;取值为0-100&quot;;
-        &#125;
-
-        //密码判断
-        let pass = document.getElementById(&quot;pass&quot;);
-        let password = document.getElementById(&quot;password&quot;);
-        let pass_text = document.getElementById(&quot;pass_text&quot;);
-        let password_text = document.getElementById(&quot;password_text&quot;);
-
-        pass.onblur = function() &#123;
-            if (pass.value.length &lt; 6  pass.value.length &gt; 20) &#123;
-                pass_text.innerText = &quot; × 必须为6-20个字符&quot;
-            &#125;
-            else &#123;
-                pass_text.innerText = &quot; √&quot;
-            &#125;
-        &#125;
-        pass.onclick = function() &#123;
-            pass_text.innerText = &quot;必须为6-20个字符&quot;;
-        &#125;
-        password.onblur = function() &#123;
-            if (pass.value != password.value) &#123;
-                password_text.innerText = &quot; × 两次密码输入不一致&quot;;
-            &#125;
-            else if (pass.value == password.value &amp;&amp; password.value != &quot;&quot;) &#123;
-                password_text.innerText = &quot; √&quot;;
-            &#125;
-        &#125;
-        password.onclick = function() &#123;
-            password_text.innerText = &quot;与个人密码相同&quot;;
-        &#125;
-
-        //个人介绍判断
-        let introduce = document.getElementById(&quot;introduce&quot;);
-        let introduce_text = document.getElementById(&quot;introduce_text&quot;);
-
-        introduce.onblur = function() &#123;
-            if (introduce.value == &quot;&quot;) &#123;
-                introduce_text.innerText = &quot; × 不能为空&quot;;
-            &#125;
-            else &#123;
-                introduce_text.innerText = &quot; √&quot;;
-            &#125;
-        &#125;
-        introduce.onclick = function() &#123;
-            introduce_text.innerText = &quot;不能为空&quot;;
-        &#125;
-
-        //爱好选择判断
-        let love = document.getElementsByClassName(&quot;love&quot;);
-        let love_text = document.getElementById(&quot;love_text&quot;);
-        let love_L = 0;
-
-        for (let i = 0; i &lt; love.length; i++) &#123;
-            love[i].onclick = function() &#123;
-                if (love[i].checked == true) &#123;
-                    love_L = love_L + 1;
-                &#125;
-                else if (love[i].checked == false) &#123;
-                    love_L = love_L - 1;
-                &#125;
-                if (love_L == 0) &#123;
-                    love_text.innerText = &quot; × 至少选择一项&quot;;
-                &#125;
-                else if (love_L != 0) &#123;
-                    love_text.innerText = &quot;&quot;;
-                &#125;
-            &#125;
-        &#125;
-
-        //颜色选择判断
-        let colour = document.getElementById(&quot;colour&quot;);
-        let colour_text = document.getElementById(&quot;colour_text&quot;);
-
-        colour.onclick = function() &#123;
-            if (colour.selectedIndex == 0) &#123;
-                colour_text.innerText = &quot; × 请选择你喜欢的颜色&quot;;
-            &#125;
-            else if (colour.selectedIndex != 0) &#123;
-                colour_text.innerText = &quot;&quot;;
-            &#125;
-        &#125;
-    &lt;/script&gt;
-&lt;/body&gt;
-
-&lt;/html&gt;
-</code></pre>
-<p><strong>未完成！！！</strong></p>
 <blockquote>
 <p>作者：404_502<br>版权声明: 本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"> CC BY-NC-SA 4.0</a>协议。转载请注明文章地址及作者</p>
 </blockquote>
